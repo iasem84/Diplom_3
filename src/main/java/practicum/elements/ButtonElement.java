@@ -8,10 +8,10 @@ import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Selenide.$;
 
 public class ButtonElement {
-    SelenideElement buttonElement;
+    private final SelenideElement buttonElement;
 
     public ButtonElement(String locator) {
-        this.buttonElement = $(new By.ByXPath(locator));
+        buttonElement = $(new By.ByXPath(locator));
     }
 
     public ButtonElement(WebElement element) {

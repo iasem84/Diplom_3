@@ -1,4 +1,7 @@
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import practicum.api.User;
 import practicum.pageobject.LoginPage;
@@ -7,34 +10,49 @@ import practicum.pageobject.RegisterPage;
 
 import static com.codeborne.selenide.WebDriverRunner.driver;
 import static org.junit.Assert.assertEquals;
-import static practicum.pageobject.Constants.LOGIN_PAGE_URL;
-import static practicum.pageobject.Constants.MAIN_PAGE_URL;
+import static org.junit.Assert.assertTrue;
+import static practicum.Constants.LOGIN_PAGE_URL;
 
 public class RegistrationTest extends BaseUITest {
 
-//    @After
-//    public void cleanUp() {
-//
-//    }
+    private User user;
+    private LoginPage loginPage;
+    private RegisterPage registerPage;
 
-    @Test
-    public void buttonClickTest() {
+    @Before
+    public void init() {
         MainPage mainPage = new MainPage();
-        LoginPage loginPage = new LoginPage();
         mainPage.personalAccountButtonClick();
+
+        loginPage = new LoginPage();
         loginPage.registerLinkClick();
-        User user = new User();
-        user.createUser();
 
-        RegisterPage registerPage = new RegisterPage();
-        registerPage.setNameField(user.getName());
-        registerPage.setEmailField(user.getEmail());
-        registerPage.setPasswordField(user.getPassword());
-        registerPage.registerButtonClick();
-
-        assertEquals(LOGIN_PAGE_URL, driver().getCurrentFrameUrl());
-
+        registerPage = new RegisterPage();
+        user = new User();
     }
 
+    @After
+    public void cleanUp() {
+        if (driver().url().equals(LOGIN_PAGE_URL)) {
+            user.loginUser();
+            user.deleteUser();
+        }
+    }
 
+    @DisplayName("User registration test")
+    @Description("User can be created with correct data")
+    @Test
+    public void userRegistrationTest() {
+        registerPage.registration(user.getName(), user.getEmail(), user.getPassword());
+        assertTrue(loginPage.isEnabledLoginButton());
+    }
+
+    @DisplayName("Check incorrect password message test")
+    @Description("Checking error message text")
+    @Test
+    public void checkIncorrectPasswordMessageTest() {
+        registerPage.registration(user.getName(), user.getEmail(), "11111");
+        String expectedMessage = "Некорректный пароль";
+        assertEquals(expectedMessage, registerPage.getErrorMessage());
+    }
 }

@@ -13,26 +13,12 @@ public class InputElement {
         this.inputElement = $(new By.ByXPath(locator));
     }
 
-    public InputElement(SelenideElement selenideElement) {
-        inputElement = selenideElement;
-    }
-
     public void clearAndSetValue(String inputValue) {
         inputElement.shouldBe(enabled).clear();
         inputElement.setValue(inputValue);
     }
 
-    public void setValue(String inputValue) {
-        inputElement.shouldBe(enabled).setValue(inputValue);
-    }
-
-    public void setValueIfIsEmpty(String inputValue) {
-        if (inputElement.getValue().isEmpty()) {
-            setValue(inputValue);
-        }
-    }
-
-    public String getValue(String logMessage) {
-        return inputElement.getValue();
+    public String getText() {
+        return inputElement.getText();
     }
 }

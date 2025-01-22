@@ -1,42 +1,54 @@
 package practicum.pageobject;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.WebDriver;
 import practicum.elements.ButtonElement;
 import practicum.elements.InputElement;
 import practicum.elements.LinkElement;
 
-import static practicum.pageobject.Constants.INPUT_EMAIL_FIELD_LOCATOR;
-import static practicum.pageobject.Constants.INPUT_PASSWORD_FIELD_LOCATOR;
+import static practicum.Constants.*;
 
 public class LoginPage {
 
-    private String goButtonLocator = ".//button[contains(text(), 'Войти')]";
-    private String registerLinkLocator = ".//a[contains(text(), 'Зарегистрироваться')]";
-
-    @Step("Go button click")
-    public void goButtonClick() {
-        ButtonElement goButton = new ButtonElement(goButtonLocator);
-        goButton.clickButton();
+    @Step("Login button click")
+    public void loginButtonClick() {
+        ButtonElement loginButton = new ButtonElement(LOGIN_BUTTON_LOCATOR);
+        loginButton.clickButton();
     }
 
     @Step("Register link click")
     public void registerLinkClick() {
-        LinkElement registerLink = new LinkElement(registerLinkLocator);
+        LinkElement registerLink = new LinkElement(REGISTER_LINK_LOCATOR);
         registerLink.clickLink();
     }
 
-    @Step("Input email to name field")
-    public void setEmailField(String name) {
+    @Step("Forgot password link click")
+    public void forgotPasswordLinkClick() {
+        LinkElement forgotPasswordLink = new LinkElement(FORGOT_PASSWORD_LINK_LOCATOR);
+        forgotPasswordLink.clickLink();
+    }
+
+    @Step("Input email to email field")
+    public void setEmailField(String email) {
         InputElement nameInput = new InputElement(INPUT_EMAIL_FIELD_LOCATOR);
-        nameInput.clearAndSetValue(name);
+        nameInput.clearAndSetValue(email);
     }
 
     @Step("Input password to password field")
-    public void setPasswordField(String name) {
+    public void setPasswordField(String password) {
         InputElement nameInput = new InputElement(INPUT_PASSWORD_FIELD_LOCATOR);
-        nameInput.clearAndSetValue(name);
+        nameInput.clearAndSetValue(password);
     }
 
+    @Step("Checking is enabled login button")
+    public boolean isEnabledLoginButton() {
+        ButtonElement buttonElement = new ButtonElement(LOGIN_BUTTON_LOCATOR);
+        return buttonElement.isEnabledButton();
+    }
 
+    @Step("Login")
+    public void login(String email, String password) {
+        setEmailField(email);
+        setPasswordField(password);
+        loginButtonClick();
+    }
 }
