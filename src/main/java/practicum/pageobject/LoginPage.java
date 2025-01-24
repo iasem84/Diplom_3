@@ -5,9 +5,13 @@ import practicum.elements.ButtonElement;
 import practicum.elements.InputElement;
 import practicum.elements.LinkElement;
 
-import static practicum.Constants.*;
-
 public class LoginPage {
+
+    private static final String LOGIN_BUTTON_LOCATOR = ".//button[contains(text(), 'Войти')]";
+    private static final String REGISTER_LINK_LOCATOR = ".//a[@href='/register']";
+    private static final String FORGOT_PASSWORD_LINK_LOCATOR = ".//a[@href='/forgot-password']";
+    private static final String INPUT_EMAIL_FIELD_LOCATOR = ".//label[contains(text(), 'Email')]/following::input[1]";
+    private static final String INPUT_PASSWORD_FIELD_LOCATOR = ".//label[contains(text(), 'Пароль')]/following::input[1]";
 
     @Step("Login button click")
     public void loginButtonClick() {

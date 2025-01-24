@@ -3,9 +3,9 @@ package practicum.pageobject;
 import io.qameta.allure.Step;
 import practicum.elements.LinkElement;
 
-import static practicum.Constants.LOGIN_LINK_LOCATOR;
-
 public class ForgotPasswordPage {
+
+    private static final String LOGIN_LINK_LOCATOR = ".//a[@href='/login']";
 
     @Step("Login link click")
     public void loginLinkClick() {

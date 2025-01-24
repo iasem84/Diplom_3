@@ -3,7 +3,8 @@ import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import practicum.api.User;
+import practicum.User;
+import practicum.api.UserApi;
 import practicum.pageobject.LoginPage;
 import practicum.pageobject.MainPage;
 import practicum.pageobject.ProfilePage;
@@ -22,7 +23,7 @@ public class ProfilePageButtonsTest extends BaseUITest {
     @Before
     public void init() {
         user = new User();
-        user.createUser();
+        user.createUser(user.getEmail(), user.getPassword(), user.getName());
 
         MainPage mainPage = new MainPage();
         mainPage.personalAccountButtonClick();
@@ -36,8 +37,8 @@ public class ProfilePageButtonsTest extends BaseUITest {
 
     @After
     public void cleanUp() {
-        user.loginUser();
-        user.deleteUser();
+        user.loginUser(user.getEmail(), user.getPassword());
+        user.deleteUser(user.getToken());
     }
 
     @DisplayName("Stellar burger logo click test")

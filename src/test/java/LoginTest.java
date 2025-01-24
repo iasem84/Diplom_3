@@ -3,13 +3,12 @@ import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import practicum.api.User;
+import practicum.User;
 import practicum.pageobject.LoginPage;
 import practicum.pageobject.MainPage;
+import practicum.pageobject.ProfilePage;
 
-import static com.codeborne.selenide.WebDriverRunner.driver;
-import static org.junit.Assert.assertEquals;
-import static practicum.Constants.PERSONAL_ACCOUNT_PAGE_URL;
+import static org.junit.Assert.assertTrue;
 
 public class LoginTest extends BaseUITest{
 
@@ -18,13 +17,13 @@ public class LoginTest extends BaseUITest{
     @Before
     public void initUser() {
         user = new User();
-        user.createUser();
+        user.createUser(user.getEmail(), user.getPassword(), user.getName());
     }
 
     @After
     public void cleanUp() {
-        user.loginUser();
-        user.deleteUser();
+        user.loginUser(user.getEmail(), user.getPassword());
+        user.deleteUser(user.getToken());
     }
 
     @DisplayName("User login test")
@@ -38,6 +37,7 @@ public class LoginTest extends BaseUITest{
         loginPage.login(user.getEmail(), user.getPassword());
 
         mainPage.personalAccountButtonClick();
-        assertEquals(PERSONAL_ACCOUNT_PAGE_URL, driver().url());
+        ProfilePage profilePage = new ProfilePage();
+        assertTrue(profilePage.isEnabledLogoutButton());
     }
 }

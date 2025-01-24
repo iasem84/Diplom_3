@@ -2,20 +2,15 @@ package practicum.elements;
 
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
-import static com.codeborne.selenide.Condition.enabled;
-import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selenide.*;
 
 public class ButtonElement {
     private final SelenideElement buttonElement;
 
     public ButtonElement(String locator) {
         buttonElement = $(new By.ByXPath(locator));
-    }
-
-    public ButtonElement(WebElement element) {
-        buttonElement = (SelenideElement) element;
     }
 
     public void clickButton() {

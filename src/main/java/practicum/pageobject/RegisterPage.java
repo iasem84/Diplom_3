@@ -5,9 +5,14 @@ import practicum.elements.ButtonElement;
 import practicum.elements.InputElement;
 import practicum.elements.LinkElement;
 
-import static practicum.Constants.*;
-
 public class RegisterPage {
+
+    private static final String REGISTER_BUTTON_LOCATOR = ".//button[contains(text(), 'Зарегистрироваться')]";
+    private static final String LOGIN_LINK_LOCATOR = ".//a[@href='/login']";
+    private static final String INPUT_NAME_FIELD_LOCATOR = ".//label[contains(text(), 'Имя')]/following::input[1]";
+    private static final String INPUT_EMAIL_FIELD_LOCATOR = ".//label[contains(text(), 'Email')]/following::input[1]";
+    private static final String INPUT_PASSWORD_FIELD_LOCATOR = ".//label[contains(text(), 'Пароль')]/following::input[1]";
+    private static final String INCORRECT_PASSWORD_ERROR_LOCATOR = ".//p[contains(@class, 'input__error')]";
 
     @Step("Register button click")
     public void registerButtonClick() {

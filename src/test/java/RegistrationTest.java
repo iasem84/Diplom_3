@@ -3,7 +3,8 @@ import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import practicum.api.User;
+import practicum.User;
+import practicum.api.UserApi;
 import practicum.pageobject.LoginPage;
 import practicum.pageobject.MainPage;
 import practicum.pageobject.RegisterPage;
@@ -15,9 +16,9 @@ import static practicum.Constants.LOGIN_PAGE_URL;
 
 public class RegistrationTest extends BaseUITest {
 
-    private User user;
     private LoginPage loginPage;
     private RegisterPage registerPage;
+    private User user;
 
     @Before
     public void init() {
@@ -34,8 +35,8 @@ public class RegistrationTest extends BaseUITest {
     @After
     public void cleanUp() {
         if (driver().url().equals(LOGIN_PAGE_URL)) {
-            user.loginUser();
-            user.deleteUser();
+            user.loginUser(user.getEmail(), user.getPassword());
+            user.deleteUser(user.getToken());
         }
     }
 

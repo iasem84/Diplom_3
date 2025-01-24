@@ -7,7 +7,7 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 
 public class LinkElement {
-    SelenideElement linkElement;
+    private final SelenideElement linkElement;
 
     public LinkElement(String locator) {
         this.linkElement = $(new By.ByXPath(locator));
